@@ -16,17 +16,16 @@ import 'package:rest_client/src/http/check_exception_io.dart'
 /// with the default session configuration.
 http.Client createDefaultHttpClient() {
   http.Client? client;
-  final platform = defaultTargetPlatform;
 
   try {
-    client = switch (platform) {
+    client = switch (defaultTargetPlatform) {
       TargetPlatform.android => CronetClient.defaultCronetEngine(),
       TargetPlatform.iOS || TargetPlatform.macOS => CupertinoClient.defaultSessionConfiguration(),
       _ => null,
     };
   } on Object catch (e, stackTrace) {
     Zone.current.print(
-      'Failed to create a default http client for platform $platform $e $stackTrace',
+      'Failed to create a default http client for platform $defaultTargetPlatform $e $stackTrace',
     );
   }
 
