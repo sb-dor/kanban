@@ -1,1 +1,12 @@
-include: package:flutter_lints/flutter.yaml
+include: package:sizzle_lints/lints.yaml
+
+formatter:
+  page_width: 100
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore
+    avoid_print: error
+    unused_import: warning
+    duplicate_import: info
+    dead_code: error

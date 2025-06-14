@@ -1,6 +1,7 @@
 import 'package:clock/clock.dart';
 import 'package:logger/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:rest_client/rest_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizzle_starter/src/core/common/error_reporter/error_reporter.dart';
 import 'package:sizzle_starter/src/core/common/error_reporter/sentry_error_reporter.dart';
@@ -81,12 +82,15 @@ Future<DependenciesContainer> createDependenciesContainer(
   // Create the AppSettingsBloc using shared preferences.
   final appSettingsBloc = await createAppSettingsBloc(sharedPreferences);
 
+  final restClient = RestClientHttp(baseUrl: config.baseURL, client: createDefaultHttpClient());
+
   return DependenciesContainer(
     logger: logger,
     config: config,
     errorReporter: errorReporter,
     packageInfo: packageInfo,
     appSettingsBloc: appSettingsBloc,
+    restClientBase: restClient,
   );
 }
 
