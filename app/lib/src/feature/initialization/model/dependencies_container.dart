@@ -3,6 +3,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rest_client/rest_client.dart';
 import 'package:sizzle_starter/src/core/common/error_reporter/error_reporter.dart';
 import 'package:sizzle_starter/src/core/constant/application_config.dart';
+import 'package:sizzle_starter/src/feature/authentication/bloc/authentication_bloc.dart';
 import 'package:sizzle_starter/src/feature/settings/bloc/app_settings_bloc.dart';
 
 /// {@template dependencies_container}
@@ -19,6 +20,7 @@ class DependenciesContainer {
     required this.errorReporter,
     required this.packageInfo,
     required this.restClientBase,
+    required this.authenticationBloc,
   });
 
   /// [Logger] instance, used to log messages.
@@ -37,6 +39,8 @@ class DependenciesContainer {
   final PackageInfo packageInfo;
 
   final RestClientBase restClientBase;
+
+  final AuthenticationBloc authenticationBloc;
 }
 
 /// {@template testing_dependencies_container}

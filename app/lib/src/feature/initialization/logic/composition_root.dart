@@ -6,6 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizzle_starter/src/core/common/error_reporter/error_reporter.dart';
 import 'package:sizzle_starter/src/core/common/error_reporter/sentry_error_reporter.dart';
 import 'package:sizzle_starter/src/core/constant/application_config.dart';
+import 'package:sizzle_starter/src/feature/authentication/bloc/authentication_bloc.dart';
+import 'package:sizzle_starter/src/feature/authentication/data/authentication_repository.dart';
+import 'package:sizzle_starter/src/feature/authentication/data/datasource/authentication_remote_datasource.dart';
 import 'package:sizzle_starter/src/feature/initialization/model/dependencies_container.dart';
 import 'package:sizzle_starter/src/feature/settings/bloc/app_settings_bloc.dart';
 import 'package:sizzle_starter/src/feature/settings/data/app_settings_datasource.dart';
@@ -84,6 +87,8 @@ Future<DependenciesContainer> createDependenciesContainer(
 
   final restClient = RestClientHttp(baseUrl: config.baseURL, client: createDefaultHttpClient());
 
+  final authenticationBlocValue = authenticationBloc(logger, restClient);
+
   return DependenciesContainer(
     logger: logger,
     config: config,
@@ -91,6 +96,7 @@ Future<DependenciesContainer> createDependenciesContainer(
     packageInfo: packageInfo,
     appSettingsBloc: appSettingsBloc,
     restClientBase: restClient,
+    authenticationBloc: authenticationBlocValue,
   );
 }
 
@@ -131,4 +137,17 @@ Future<AppSettingsBloc> createAppSettingsBloc(SharedPreferencesAsync sharedPrefe
   final initialState = AppSettingsState.idle(appSettings: appSettings);
 
   return AppSettingsBloc(appSettingsRepository: appSettingsRepository, initialState: initialState);
+}
+
+AuthenticationBloc authenticationBloc(Logger logger, RestClientBase restClientBase) {
+  final authenticationDatasource = AuthenticationRemoteDataSource(
+    logger: logger,
+    restClientBase: restClientBase,
+  );
+
+  final authenticationRepository = AuthenticationRepository(
+    authenticationRemoteDataSource: authenticationDatasource,
+  );
+
+  return AuthenticationBloc(authenticationRepository: authenticationRepository);
 }
