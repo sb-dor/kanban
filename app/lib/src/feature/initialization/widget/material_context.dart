@@ -3,6 +3,7 @@ import 'package:sizzle_starter/src/core/constant/localization/localization.dart'
 import 'package:sizzle_starter/src/feature/authentication/widgets/authentication_widget.dart';
 import 'package:sizzle_starter/src/feature/settings/model/app_theme.dart';
 import 'package:sizzle_starter/src/feature/settings/widget/settings_scope.dart';
+import 'package:sizzle_starter/src/feature/task_board/widgets/task_board_widget.dart';
 
 /// {@template material_context}
 /// [MaterialContext] is an entry point to the material context.
@@ -36,6 +37,11 @@ class MaterialContext extends StatelessWidget {
       localizationsDelegates: Localization.localizationDelegates,
       supportedLocales: Localization.supportedLocales,
       home: const AuthenticationWidget(),
+      initialRoute: '/authentication',
+      routes: {
+        '/authentication': (context) => const AuthenticationWidget(),
+        'task-board': (context) => const TaskBoardWidget(),
+      },
       builder:
           (context, child) => MediaQuery(
             key: _globalKey,

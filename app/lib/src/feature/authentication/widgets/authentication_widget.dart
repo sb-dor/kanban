@@ -49,6 +49,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                 listener: (context, state) {
                   if (state is AuthenticationAuthenticatedState) {
                     // change screen when authenticated
+                    Navigator.pushNamedAndRemoveUntil(context, 'task-board', (_) => false);
                   }
                 },
                 bloc: _authenticationBloc,
