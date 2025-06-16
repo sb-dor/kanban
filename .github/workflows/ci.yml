@@ -43,8 +43,8 @@ jobs:
         run: bash ./scripts/analyze.bash
 
       # Remove this step if you don't use Dart Code Metrics
-      - name: 🕵️ Analyze with DCM
-        run: dcm analyze . -r github
+      # - name: 🕵️ Analyze with DCM
+      #   run: dcm analyze . -r github
 
       # ———————————————————————————————————————————————————————
       #   RUN TESTS + COVERAGE

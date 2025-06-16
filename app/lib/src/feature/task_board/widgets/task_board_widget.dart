@@ -14,9 +14,9 @@ class _TaskBoardWidgetState extends State<TaskBoardWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WindowSizeScope.of(context).maybeMap(
-        orElse: () => const TaskBoardDesktopWidget(),
-        compact: () => const TaskBoardMobileWidget(),
+      body: WindowSizeScope.of(context).maybeMap<Widget>(
+        orElse: () => const TaskBoardDesktopWidget(), // any desktop ui
+        compact: () => const TaskBoardMobileWidget(), // mobile ui
       ),
     );
   }
